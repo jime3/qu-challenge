@@ -27,53 +27,60 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const postsPerPage = 10;
 
   useEffect(() => {
+    //Note: I had to get all the planets to be able to sort them because the API does not have any parameters to sort them by any attribute
     const getData = async () => {
       try {
         setIsLoading(true);
 
+        const response = await fetch("https://swapi.dev/api/planets/");
+        const data = await response.json();
+        const totalCount = data.count;
+        const totalPages = Math.ceil(totalCount / 10);
+
         let allPlanets = [];
-        let currentPage2 = 1;
 
-        while (true) {
-          const response = await fetch.get(
-            `https://swapi.dev/api/planets/?page=${currentPage}`
+        // Fetch data for each page
+        for (let page = 1; page <= totalPages; page++) {
+          const pageResponse = await fetch(
+            `https://swapi.dev/api/planets/?page=${page}`
           );
-          const data = await response.json();
-          const currentPlanets = data.results;
-
-          // Break the loop if there are no more planets
-          if (currentPlanets.length === 0) {
-            break;
-          }
-
+          const pageData = await pageResponse.json();
+          const currentPlanets = pageData.results;
           allPlanets = allPlanets.concat(currentPlanets);
-          currentPage++;
         }
         // Sort the planets by name
         allPlanets.sort((a, b) => a.name.localeCompare(b.name));
 
-        // Set the sorted planets in the state
         setPlanets(allPlanets);
 
-        setTotalPages(Math.ceil(data.count / 10));
-        setIsLoading(false);
+        setTotalPages(6);
       } catch (e) {
         console.log(e);
+      } finally {
+        setIsLoading(false);
       }
     };
     getData();
-  }, [currentPage]);
+  }, []);
 
-  function handlePagination(currentPage) {
+  const handlePagination = (currentPage) => {
     setCurrentPage(currentPage);
-  }
+  };
+
+  const getPlanetsToShow = () => {
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+
+    return planets.slice(startIndex, endIndex);
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        <PlanetList planets={planets} isLoading={isLoading} />
+        <PlanetList planets={getPlanetsToShow()} isLoading={isLoading} />
         {!isLoading && (
           <Pagination
             currentPage={currentPage}

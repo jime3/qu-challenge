@@ -1,5 +1,8 @@
+import React, { useMemo } from "react";
+
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+
   return (
     <footer
       style={{

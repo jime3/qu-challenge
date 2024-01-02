@@ -24,7 +24,7 @@ const PlanetList = ({ planets, isLoading }) => {
       <Grid container spacing={3} justify="center">
         {planets.map((item, index) => {
           return (
-            <Grid item xs={4} key={index}>
+            <Grid item xs={12} md={4} key={index}>
               <Planet
                 key={index}
                 name={item.name}

@@ -1,4 +1,3 @@
-import classes from "./Planet.module.css";
 import {
   Button,
   Card,
@@ -7,22 +6,10 @@ import {
   CardActions,
   Divider,
   Stack,
-  Box,
   Modal,
 } from "@mui/material";
 import * as React from "react";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import PlanetModal from "./PlanetModal";
 
 const Planet = ({
   name,
@@ -84,27 +71,12 @@ const Planet = ({
           </Button>
         </CardActions>
       </Card>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Details
-          </Typography>
-          <Divider />
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Rotatio period: {rotation_period}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Orbital period: {orbital_period}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Gravity: {gravity}
-          </Typography>
-        </Box>
+      <Modal open={open} onClose={handleClose}>
+        <PlanetModal
+          rotation_period={rotation_period}
+          orbital_period={orbital_period}
+          gravity={gravity}
+        />
       </Modal>
     </>
   );

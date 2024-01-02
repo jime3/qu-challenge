@@ -1,7 +1,6 @@
 import classes from "./Pagination.module.css";
 
 const Pagination = ({ currentPage, totalPages, paginate }) => {
-  console.log(totalPages);
   return (
     <div className={classes["pagination-container"]}>
       <button
