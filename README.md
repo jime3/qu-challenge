@@ -4,7 +4,7 @@ Qu Challenge.
 2. Which are the potential side-effects in any function? Could you point out any of these cases in
 your code? Are they expected? Can they be avoided?
 
-1. A closure occurs when a function is defined inside another function(the outer function), and this inner function retains access to the variables of the outer function, even after the outer function has finished executing.
+- A closure occurs when a function is defined inside another function(the outer function), and this inner function retains access to the variables of the outer function, even after the outer function has finished executing.
  An example of a clouser in the code is:
 
    const handlePagination = (currentPage) => {
@@ -13,7 +13,7 @@ your code? Are they expected? Can they be avoided?
 When handlePagination is passed as a callback to the paginate prop of the Pagination component, it forms a closure. This closure retains access to the setCurrentPage function from the outer scope of the App component. 
 So, when the Pagination component runs handlePagination, it can still modify the currentPage state.
 
-2. Potential side effects in any function include:
+- Potential side effects in any function include:
 
 -Asynchronous operations 
 -Network requests and interactions with external APIs
